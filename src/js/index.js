@@ -10,13 +10,36 @@ import Home from "./component/home.jsx";
 import SecondsCouter from "./component/secondsCounter.jsx";
 
 let seconds = 0
+let intervalo
+
 
 //render your react application
 let app = ReactDOM.createRoot(document.getElementById('app'))
 
-app.render(<SecondsCouter counter={seconds}/>);
+app.render(<SecondsCouter counter={seconds} />);
 
-setInterval ( () => {
+const renderSecondsCounter = () => {
     seconds++;
-    app.render(<SecondsCouter counter={seconds}/>);
-},1000) 
+    app.render(<>
+        <SecondsCouter counter={seconds} />
+        <div>
+            <input id="cantidadDeSegundos" placeholder="Cantidad de sgundos" type="number" onChange={(event) => {
+                seconds = event.target.value
+            }} />
+            <div className="btn-group" role="group" aria-label="Basic example">
+                <button type="button" className="btn btn-primary" onClick={()=>{
+                    clearInterval(intervalo);
+                }}>Stop</button>
+                <button type="button" className="btn btn-primary" onClick={()=>{
+                    intervalo = setInterval(renderSecondsCounter,1000);
+                }}>Play</button>
+                <button type="button" className="btn btn-primary" onClick={()=>{
+                    seconds = 0;
+                    document.querySelector("#cantidadDeSegundos").value = undefined;
+                }}>Restart</button>
+            </div>
+        </div>
+    </>);
+};
+
+intervalo = setInterval (renderSecondsCounter,1000);
