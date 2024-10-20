@@ -27,10 +27,10 @@ const renderSecondsCounter = () => {
                 seconds = event.target.value
             }} />
             <div className="btn-group" role="group" aria-label="Basic example">
-                <button type="button" className="btn btn-primary" onClick={()=>{
+                <button type="button" className="btn btn-danger" onClick={()=>{
                     clearInterval(intervalo);
                 }}>Stop</button>
-                <button type="button" className="btn btn-primary" onClick={()=>{
+                <button type="button" className="btn btn-warning" onClick={()=>{
                     intervalo = setInterval(renderSecondsCounter,1000);
                 }}>Play</button>
                 <button type="button" className="btn btn-primary" onClick={()=>{
